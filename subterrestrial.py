@@ -1,4 +1,4 @@
-from SimpleCV import Camera
+#from SimpleCV import Camera
 from clarifai.client import ClarifaiApi
 from PIL import Image
 
@@ -21,6 +21,8 @@ def defineFood(newfood):
 	"""Send picture to clarafai, return tags"""
 	clarifai_api = ClarifaiApi(app_id='tbndTvx-Mv_OGD4CKeOhPap1gfAFSSWDUzPT2X6x', app_secret='JQNnSLBftBwJLMkNtIsdhUdU7OQ0a5HZDKLdPTtR') # assumes environment variables are set.
 	result = clarifai_api.tag_images(newfood)
+	#parse result
+	print (result[u'results'][0][u'result'][u'tag'][u'classes'])
 	return result
 
 # def foodItemNum():
@@ -44,6 +46,7 @@ def defineFood(newfood):
 def returnFridgeFoodList():
 	"""return list of food available in fridge"""
 
+
 #def getFood():
 #	""""search for the food in the fridge and return bin number"""
 
@@ -52,6 +55,6 @@ thisFood = open('banana.jpg')
 im = Image.open(thisFood)
 im.rotate(45).show()
 
-print(defineFood(thisFood))
+defineFood(thisFood)
 
-takePicture()
+#takePicture()
