@@ -50,7 +50,7 @@ def addFood(foodname):
 	#store item in list
 	foodInTheFridge[itemCoord[0], column] = foodname # store string of food name chosen by user in the fridge inventory
 	rowLetter= char(row+97) #convert row into alphabet for serialCom
-	#send food item to hardware to light up place in fridge
+	#send add food item call to hardware to light up place in fridge
 	dState('L', rowLetter, column, 1)
 	#turn light off
 	time.sleep(10)
@@ -84,6 +84,7 @@ def removeFood(requestedItem):
 	column = itemCoord[1]
 	foodInTheFridge[row, column] = ''
 	rowLetter = char(row+97)
+	#send remove call to hardware
 	dState('S',rowLetter, column,'1')
 	#turn light off
 	time.sleep(10)
