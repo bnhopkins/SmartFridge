@@ -9,7 +9,8 @@ import time
 print "Welcome to Sub Terrestrial"
 
 #inventory list
-foodInTheFridge = [['',''],['','',['','']]
+foodInTheFridge = [['',''],['',''],['','']]
+
 
 def defineFood(fooditem):
 	"""Send picture to clarafai, return tags"""
@@ -56,16 +57,17 @@ def addFood(foodname):
 	time.sleep(10)
 	dState('L', rowLetter, column, 0)
 
-
 def fridgeFoodList():
 	"""return list of food available in fridge"""
 	foodList=[]
 	bin=1 #bin identifier
 	for rows in foodInTheFridge:
 		for items in rows:
-			foodList.append([bin, item])
+			foodList.append([bin, items])
+			print(bin,items)
 			bin= bin+1
 	return foodList
+
 
 def getCoord(requestedItem):
 	row=0
@@ -91,6 +93,7 @@ def removeFood(requestedItem):
 	dState('s', rowLetter, column, 0)
 
 
-##run code- get item and remove item from fridge
+#run code- get item and remove item from fridge
 addFood("banana")
 removeFood("banana")
+fridgeFoodList()
