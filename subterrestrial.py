@@ -30,6 +30,7 @@ def setCoord():
 		column=1
 		for items in rows:
 			if items == 0:
+				#return coordinates of first empty bin
 				return [row,column]
 			column= column+1
 		row= row +1
@@ -48,27 +49,22 @@ def addFood(foodname):
 	dState('L', rowLetter, column, 1)
 
 
-def returnFridgeFoodList():
+def fridgeFoodList():
 	"""return list of food available in fridge"""
 	foodList=[]
-	box=1
+	bin=1 #bin identifier
 	for rows in foodInTheFridge:
 		for items in rows:
-			if (items!=0):
-				foodList.append(item)
+			foodList.append([bin, item])
+			bin= bin+1
 	return foodList
-
-def getChoice():
-	##impliment ################
-	return str "banana"
-	############################
 
 def getCoord(requestedItem):
 	row=0
 	for rows in foodInTheFridge:
 		column=1
 		for items in rows:
-			if items == getChoice():
+			if items == requestedItem:
 				return [row,column]
 			column= column+1
 		row= row +1		
