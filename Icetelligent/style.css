@@ -1,0 +1,130 @@
+body{
+	font-family: 'Slabo';
+	margin-bottom: 100px;
+
+}
+
+.nav{
+	text-align: center;
+
+}
+
+.nav-link{
+	font-size: 25px;
+	margin-top: 25px;
+	margin: 15px 15px;
+}
+
+ul li{
+
+    list-style-type: none;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+    display: inline;
+}
+
+a {
+    width: 60px;
+}
+h1{
+	text-align: center;
+	font-size: 75px;
+	margin-top: 10%;
+	margin-bottom: 0%;
+
+}
+
+
+h2{
+	text-align: center;
+	font-size: 16px;
+	margin-right: 25%;
+	margin-left: 25%;
+
+
+}
+
+h3{
+	text-align: center;
+}
+
+h4{
+	text-align: left;
+	font-size: 23px;
+	margin-left: 20%;
+
+}
+/*blog date*/
+h5{
+
+	text-align: center;
+	font-size: 15px;
+	font-color: lightgrey;
+
+
+}
+
+p{
+	text-align: justify;
+	margin-top: 20px;
+	margin-left: 20%;
+	margin-right: 20%;
+	font-size: 18px;
+
+}
+img{
+	width: 40%;
+	margin-left: 30%;
+	margin-top: 5%;
+}
+
+div{
+	text-align: center;
+}
+
+/* unvisited link */
+a:link {
+    color: grey;
+    text-decoration: none;
+
+}
+
+/* visited link */
+a:visited {
+    color: grey;
+    text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: lightgrey;
+    text-decoration: none;
+
+}
+
+/* selected link */
+a:active {
+    color: lightgrey;
+    text-decoration: none;
+}
+
+#subtitle{
+	color: lightgrey;
+	margin-top: 0%;
+}
+
+#mainPageTitle{
+	vertical-align: middle; 
+}
+
+#footer{
+	margin-bottom: 5px;
+}
+
+#blogdescription{
+	margin-top: 5%;
+	text-align: center;
+	margin-right: 30%; 
+	margin-left: 30%;
+}
