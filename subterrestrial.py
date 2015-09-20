@@ -6,7 +6,7 @@ from serialCom import dState
 print "Welcome to Sub Terrestrial"
 
 #inventory list
-foodInTheFridge = [[0,0],[0,0],[0,0]]
+foodInTheFridge = [['',''],['','',['','']]
 
 
 def defineFood(fooditem):
@@ -29,7 +29,7 @@ def setCoord():
 	for rows in foodInTheFridge:
 		column=1
 		for items in rows:
-			if items == 0:
+			if items == '':
 				#return coordinates of first empty bin
 				return [row,column]
 			column= column+1
@@ -40,6 +40,8 @@ def addFood(foodname):
 	"""add the food tags and number to the fridge dictionary"""
 	#set coordinates of food
 	itemCoord=setCoord() #item coordinates in fridge table
+	print(itemCoord)
+	print(itemCoord)
 	row=itemCoord[0]
 	column=itemCoord[1] #column for serialCom
 	#store item in list
@@ -74,11 +76,11 @@ def removeFood(requestedItem):
 	itemCoord = getCoord(requestedItem)
 	row = itemCoord[0]
 	column = itemCoord[1]
-	foodInTheFridge[row, column] = 0
+	foodInTheFridge[row, column] = ''
 	rowLetter = char(row+97)
 	dState('S',rowLetter, column,'1')
 
 
 ##run code- get item and remove item from fridge
-addFood()
-removeFood()
+addFood("banana")
+removeFood("banana")
