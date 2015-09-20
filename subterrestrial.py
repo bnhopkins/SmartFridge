@@ -2,12 +2,14 @@
 from clarifai.client import ClarifaiApi
 from PIL import Image
 from serialCom import dState
+import time
+
+
 
 print "Welcome to Sub Terrestrial"
 
 #inventory list
 foodInTheFridge = [['',''],['','',['','']]
-
 
 def defineFood(fooditem):
 	"""Send picture to clarafai, return tags"""
@@ -35,7 +37,8 @@ def setCoord():
 			column= column+1
 		row= row +1
 
-	
+
+
 def addFood(foodname):
 	"""add the food tags and number to the fridge dictionary"""
 	#set coordinates of food
@@ -49,6 +52,9 @@ def addFood(foodname):
 	rowLetter= char(row+97) #convert row into alphabet for serialCom
 	#send food item to hardware to light up place in fridge
 	dState('L', rowLetter, column, 1)
+	#turn light off
+	time.sleep(10)
+	dState('L', rowLetter, column, 0)
 
 
 def fridgeFoodList():
@@ -79,6 +85,9 @@ def removeFood(requestedItem):
 	foodInTheFridge[row, column] = ''
 	rowLetter = char(row+97)
 	dState('S',rowLetter, column,'1')
+	#turn light off
+	time.sleep(10)
+	dState('s', rowLetter, column, 0)
 
 
 ##run code- get item and remove item from fridge
