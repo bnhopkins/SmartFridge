@@ -14,7 +14,8 @@ __author__ = "Ex Vito"
 
 
 cherrypy.config.update({
-                        'server.socket_port': 8000,
+                        'server.socket_host': '0.0.0.0',
+                        'server.socket_port': 8000
                        })
 
 foodInTheFridge = [[0,0],[0,0],[0,0]]
