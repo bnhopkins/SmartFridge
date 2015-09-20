@@ -8,7 +8,7 @@ import time
 
 print "Welcome to Sub Terrestrial"
 
-#inventory list
+inventory list
 foodInTheFridge = [['',''],['',''],['','']]
 
 
