@@ -14,11 +14,11 @@ __author__ = "Ex Vito"
 
 
 cherrypy.config.update({
-                        'server.socket_host': '0.0.0.0',
-                        'server.socket_port': 8000
+                        'server.socket_port': 8000,
                        })
 
 foodInTheFridge = [[0,0],[0,0],[0,0]]
+tags=[]
 # jpgdata = newFood.read()
 # newFood.close()
 # ##figure out gui
@@ -33,9 +33,15 @@ foodInTheFridge = [[0,0],[0,0],[0,0]]
 
 def defineFood(newfood):
 	"""Send picture to clarafai, return tags"""
+	tags=[]
 	clarifai_api = ClarifaiApi(app_id='tbndTvx-Mv_OGD4CKeOhPap1gfAFSSWDUzPT2X6x', app_secret='JQNnSLBftBwJLMkNtIsdhUdU7OQ0a5HZDKLdPTtR') # assumes environment variables are set.
 	result = clarifai_api.tag_images(newfood)
-	return result
+	#parse result
+	i=0
+	while (i<len(result[u'results'][0][u'result'][u'tag'][u'classes'])):
+		tags.append(result[u'results'][0][u'result'][u'tag'][u'classes'][i])
+		i=i+1
+	return tags
 
 # def foodItemNum():
 # 	"""find empty item bin number"""
@@ -130,16 +136,57 @@ class fileUpload:
         # filename; if we renamed, there would be a failure because
         # the NamedTemporaryFile, used by our version of cgi.FieldStorage,
         # explicitly deletes the original filename
-        theFile = formFields['theFile']
-        os.link(theFile.file.name, '/Users/brookehopkins/Desktop/SubFridge/'+theFile.filename)
+        theFile = formFields['theFile'] #/Users/brookehopkins/Desktop/SubFridge/
+        os.link(theFile.file.name, '/Users/maslo/Desktop/SubFridge/'+theFile.filename)
         thisFood = open(theFile.filename)
         im = Image.open(thisFood)
         im.rotate(45).show()
 
-        print(defineFood(thisFood))
+        tags = defineFood(thisFood)
 
-        return "ok, got it filename='%s'" % theFile.filename
+        return '''
+        <!doctype html>
+        <html lang="en">
+        <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+        </head>
+        <body>
+        <form method="get" action="generate">
+              <button type="submit" name="answer" value="'''+tags[0]+'''">'''+tags[0]+'''</button>
+              <button type="submit" name="answer" value="'''+tags[1]+'''">'''+tags[0]+'''</button>
+              <button type="submit" name="answer" value="'''+tags[2]+'''">'''+tags[0]+'''</button>
+              <button type="submit" name="answer" value="'''+tags[3]+'''">'''+tags[0]+'''</button>
+              <button type="submit" name="answer" value="'''+tags[4]+'''">'''+tags[0]+'''</button>
+              <button type="submit" name="answer" value="'''+tags[5]+'''">'''+tags[0]+'''</button>
+              <input type="text" name="answer">
+              <input type="submit" value="Add custom tag.">
+        </form>
+
+
+        </body>
+        </html>
+        '''
+    @cherrypy.expose
+    def generate(self, answer):
+        return '''
+        <!doctype html>
+        <html lang="en">
+        <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        </head>
+        <body>
+        <p>You added'''+str(answer[0])+'''to the inventory</p>
+        <div href="http://localhost:8000">Add Additional Items</div>
+        <div href="http://localhost:8000/retrieve">Retrieve Items</div>
+        </body>
+        </html>
+        '''
+        ### HERE WE NEED TO ADD ANSWER TO FRIDGE
+
+    # def retrieve(self):
+    #     return '''
 
 # remove any limit on the request body size; cherrypy's default is 100MB
 # (maybe we should just increase it ?)
