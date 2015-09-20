@@ -4,7 +4,6 @@ import cherrypy
 import cgi
 import tempfile
 import os
-from SimpleCV import Camera
 from clarifai.client import ClarifaiApi
 from PIL import Image
 
@@ -131,14 +130,13 @@ class fileUpload:
         # the NamedTemporaryFile, used by our version of cgi.FieldStorage,
         # explicitly deletes the original filename
         theFile = formFields['theFile']
-        os.link(theFile.file.name, '/Users/maslo/Desktop/SubFridge/tmp/'+theFile.filename)
+        os.link(theFile.file.name, '/Users/brookehopkins/Desktop/SubFridge/'+theFile.filename)
         thisFood = open(theFile.filename)
         im = Image.open(thisFood)
         im.rotate(45).show()
 
         print(defineFood(thisFood))
 
-        takePicture()
         return "ok, got it filename='%s'" % theFile.filename
 
 
