@@ -1,25 +1,27 @@
 
 
-// Initiate 
-int pushButton = 2;
-int pushButton = 2;
+const int ledPin = 9;      // the pin that the LED is attached to
 
-// the setup routine runs once when you press reset:
-void setup() {
-  // initialize serial communication at 9600 bits per second:
+void setup()
+{
+  // initialize the serial communication:
   Serial.begin(9600);
-  // make the pushbutton's pin an input:
-  pinMode(pushButton, INPUT);
+  // initialize the ledPin as an output:
+  pinMode(ledPin, OUTPUT);
 }
 
-// the loop routine runs over and over again forever:
 void loop() {
-  // read the input pin:
-  int buttonState = digitalRead(pushButton);
-  // print out the state of the button:
-  Serial.println(buttonState);
-  delay(1);        // delay in between reads for stability
-}
+  byte brightness;
 
+  // check if data has been sent from the computer:
+  if (Serial.available()) {
+    // read the most recent byte (which will be from 0 to 255):
+    brightness = Serial.parseInt();
+    brightness = int(brightness);
+    // set the brightness of the LED:
+    analogWrite(ledPin, brightness);
+    Serial.println(brightness);
+  }
+}
 
 
