@@ -8,8 +8,8 @@ import time
 
 print "Welcome to Sub Terrestrial"
 
-inventory list
-foodInTheFridge = [['',''],['',''],['','']]
+#inventory list
+foodInTheFridge = [['',''],['banana',''],['','']]
 
 
 def defineFood(fooditem):
@@ -30,7 +30,7 @@ def setCoord():
 	"""find empty item bin number to store food item, return coordinates """
 	row=0
 	for rows in foodInTheFridge:
-		column=1
+		column=0
 		for items in rows:
 			if items == '':
 				#return coordinates of first empty bin
@@ -44,18 +44,18 @@ def addFood(foodname):
 	"""add the food tags and number to the fridge dictionary"""
 	#set coordinates of food
 	itemCoord=setCoord() #item coordinates in fridge table
-	print(itemCoord)
-	print(itemCoord)
-	row=itemCoord[0]
-	column=itemCoord[1] #column for serialCom
+	row = itemCoord[0]
+	column = itemCoord[1] #column for serialCom
 	#store item in list
-	foodInTheFridge[itemCoord[0], column] = foodname # store string of food name chosen by user in the fridge inventory
-	rowLetter= char(row+97) #convert row into alphabet for serialCom
+	foodInTheFridge[itemCoord[0]][column] = foodname # store string of food name chosen by user in the fridge inventory
+	rowLetter = chr(row+97) #convert row into alphabet for serialCom
+	columnNum = column+1
 	#send add food item call to hardware to light up place in fridge
-	dState('L', rowLetter, column, 1)
+	dState('L', rowLetter, columnNum, 1)
 	#turn light off
 	time.sleep(10)
-	dState('L', rowLetter, column, 0)
+	dState('L', rowLetter, columnNum, 0)
+
 
 def fridgeFoodList():
 	"""return list of food available in fridge"""
@@ -64,7 +64,6 @@ def fridgeFoodList():
 	for rows in foodInTheFridge:
 		for items in rows:
 			foodList.append([bin, items])
-			print(bin,items)
 			bin= bin+1
 	return foodList
 
@@ -72,7 +71,7 @@ def fridgeFoodList():
 def getCoord(requestedItem):
 	row=0
 	for rows in foodInTheFridge:
-		column=1
+		column=0
 		for items in rows:
 			if items == requestedItem:
 				return [row,column]
@@ -84,16 +83,21 @@ def removeFood(requestedItem):
 	itemCoord = getCoord(requestedItem)
 	row = itemCoord[0]
 	column = itemCoord[1]
-	foodInTheFridge[row, column] = ''
-	rowLetter = char(row+97)
-	#send remove call to hardware
+	foodInTheFridge[row][column] = ''
+	rowLetter = chr(row+97)
+	columnNum = column+1	#send remove call to hardware
 	dState('S',rowLetter, column,'1')
-	#turn light off
+	turn light off
 	time.sleep(10)
 	dState('s', rowLetter, column, 0)
 
 
-#run code- get item and remove item from fridge
-addFood("banana")
-removeFood("banana")
-fridgeFoodList()
+# #run code- get item and remove item from fridge
+# addFood("banana")
+# removeFood("banana")
+# print(fridgeFoodList())
+# setCoord()
+# addFood('chocolate')
+# removeFood('banana')
+# getCoord('banana')
+# removeFood('banana')
