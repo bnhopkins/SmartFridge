@@ -1,5 +1,5 @@
 // PROTOCOL:
-//MSG *IA2O# I - input, O - output
+//MSG *LA2O# I - input, O - output
 //     ^ device type
 //      ^ row
 //       ^ column
