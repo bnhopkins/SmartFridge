@@ -21,10 +21,7 @@ def defineFood(fooditem):
 		i=i+1
 	return tags
 
-def setFoodName():
-	## impliment get choice#####
-	str choice ='banana'
-	#############################
+
 
 def setCoord():
 	"""find empty item bin number to store food item, return coordinates """
@@ -37,15 +34,15 @@ def setCoord():
 			column= column+1
 		row= row +1
 
-
-def addFood():
+	
+def addFood(foodname):
 	"""add the food tags and number to the fridge dictionary"""
 	#set coordinates of food
-	itemCoord=foodItemNum() #item coordinates in fridge table
+	itemCoord=setCoord() #item coordinates in fridge table
 	row=itemCoord[0]
 	column=itemCoord[1] #column for serialCom
 	#store item in list
-	foodInTheFridge[itemCoord[0], column] = getChoice() # store string of food name chosen by user in the fridge inventory
+	foodInTheFridge[itemCoord[0], column] = foodname # store string of food name chosen by user in the fridge inventory
 	rowLetter= char(row+97) #convert row into alphabet for serialCom
 	#send food item to hardware to light up place in fridge
 	dState('L', rowLetter, column, 1)
